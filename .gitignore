@@ -1,0 +1,30 @@
+# Godot
+.godot/
+*.import
+export_presets.cfg
+*.uid
+
+# Local / private notes (optional)
+research&context.md
+**/research&context.md
+addons/filtr/docs/
+PACKAGING_CHECKLIST.md
+INTERNAL_*.md
+PRIVATE_*.md
+
+# Tooling
+.cursor/
+**/.cursor/
+*.cursor-workspace
+**/.cursorignore
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Scratch
+test_project/
+sandbox/
+scratch/

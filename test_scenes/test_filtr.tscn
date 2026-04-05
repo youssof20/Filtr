@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dk4xeovmcs4eo"]
+
+[ext_resource type="Script" uid="uid://fxeh2u7m6fhf" path="res://addons/filtr/nodes/filtr_node.gd" id="1_filtr"]
+
+[node name="TestFiltr" type="Control" unique_id=1786948800]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=347924792]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22, 0.28, 0.42, 1)
+
+[node name="Hint" type="Label" parent="." unique_id=1236746825]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 520.0
+offset_bottom = 56.0
+text = "Filtr — add a FiltrNode, pick a look in the Filtr dock (instant apply) or Inspector, tune Intensity. Run the project to see the stack."
+
+[node name="Filtr" type="Node" parent="." unique_id=1191145942]
+script = ExtResource("1_filtr")
+look = "signal_loss"
+intensity = 25.3
