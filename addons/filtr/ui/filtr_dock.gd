@@ -147,14 +147,14 @@ func _rebuild_builtin_cache() -> void:
 
 func _scan_saved_looks() -> void:
 	_saved_paths = PackedStringArray()
-	var dir := DirAccess.open("res://filtr_looks")
+	var dir := DirAccess.open(FiltrStrings.SAVED_LOOKS_DIR)
 	if dir == null:
 		return
 	dir.list_dir_begin()
 	var fn := dir.get_next()
 	while fn != "":
 		if not dir.current_is_dir() and fn.ends_with(".tres"):
-			_saved_paths.append("res://filtr_looks/" + fn)
+			_saved_paths.append("%s/%s" % [FiltrStrings.SAVED_LOOKS_DIR, fn])
 		fn = dir.get_next()
 	dir.list_dir_end()
 	_saved_paths.sort()
@@ -305,7 +305,7 @@ func _confirm_delete_saved(path: String) -> void:
 
 func _do_delete_saved(path: String) -> void:
 	var err := OK
-	var dopen := DirAccess.open("res://filtr_looks")
+	var dopen := DirAccess.open(FiltrStrings.SAVED_LOOKS_DIR)
 	if dopen:
 		err = dopen.remove(path.get_file())
 	else:

@@ -14,13 +14,17 @@ Copy `addons/filtr` into your project → **Project → Project Settings → Plu
 2. Pick a **Look** in the Inspector or the **Filtr** dock.
 3. Set **Intensity** (0–100), per-look detail sliders, and under **Adjust (global)** optional hue / saturation / shadow grade / highlights.
 
-## Dock & saved looks
+## Filtr dock
 
-Browse and search looks in the **Filtr** dock. Save/load **FiltrSavedLook** resources; place `.tres` files under `res://filtr_looks/` so they appear in the dock (the folder is optional until you save looks).
+Browse and search looks; select a **FiltrNode** in the scene tree, then click a row to apply. **Escape** clears the search box; **Enter** applies the focused row. Optional thumbnails: place `addons/filtr/thumbnails/<look_id>.png`.
+
+## Saved looks
+
+Inspector **Save / Load look** writes a **FiltrSavedLook** resource. Save `.tres` files under **`res://addons/filtr/saved_looks/`** — they are listed in the dock (right-click a saved row to delete). That folder ships with a `.gitkeep` so the path exists.
 
 ## Zones
 
-Use **FiltrZone** / **FiltrZone2D** for area volumes: assign a look and blend time; **On exit** can restore the driver look or clear the stack.
+Use **FiltrZone** / **FiltrZone2D** for area volumes: assign a look and blend time; **On exit** can restore the FiltrNode look or clear the stack.
 
 ## Code API (AnimationPlayer-safe)
 
@@ -31,6 +35,30 @@ $FiltrNode.set_intensity(0.7)
 $FiltrNode.set_sub_value("grain", 0.4)
 $FiltrNode.clear(2.0)
 ```
+
+## Shader building blocks
+
+All fullscreen passes live in `addons/filtr/shaders/`. **Update this list when you add or remove a `.gdshader` file** (reference for authors and fork maintenance).
+
+| File | Role |
+|------|------|
+| `adjust_grade.gdshader` | Final global grade (FiltrManager): hue, saturation, shadow tint, highlights, blend with intensity |
+| `bleach_bypass.gdshader` | High-contrast partly desaturated blend |
+| `blur.gdshader` | Soft box blur |
+| `chromatic.gdshader` | RGB channel separation |
+| `color_grade.gdshader` | Saturation, contrast, tint, optional flicker |
+| `crt_warp.gdshader` | Barrel warp + scan-line dimming |
+| `dither.gdshader` | Ordered dither / retro banding |
+| `glitch_lines.gdshader` | Horizontal row UV offsets (digital tear) |
+| `grain.gdshader` | Film grain |
+| `halftone.gdshader` | Dot-screen print look |
+| `noise_distort.gdshader` | Noise-driven UV warp |
+| `pixelate.gdshader` | Pixel block scale |
+| `posterize.gdshader` | Quantize RGB to discrete steps |
+| `scanlines.gdshader` | Horizontal scan lines |
+| `sharpen.gdshader` | Mild unsharp mask |
+| `vignette.gdshader` | Edge darken, optional pulse |
+| `warp.gdshader` | Gentle wavy warp |
 
 ## Godot version
 

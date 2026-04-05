@@ -15,3 +15,6 @@ const DOCK_HINT_SELECTED := "Click a look to apply. Adjust Intensity in the Insp
 const DOCK_UNDO_APPLY := "Filtr: apply look"
 const DOCK_UNDO_APPLY_SAVED := "Filtr: apply saved look"
 const DOCK_DELETE_CONFIRM := "Delete saved look ‘%s’ from the project?"
+
+## `.tres` **FiltrSavedLook** files saved here are listed in the Filtr dock.
+const SAVED_LOOKS_DIR := "res://addons/filtr/saved_looks"

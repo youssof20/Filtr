@@ -56,14 +56,14 @@ func _exit_tree() -> void:
 func _on_save_pressed() -> void:
 	if _plugin == null or _node == null:
 		return
-	_save_dlg.current_dir = "res://filtr_looks"
+	_save_dlg.current_dir = FiltrStrings.SAVED_LOOKS_DIR
 	_save_dlg.popup_centered_ratio(0.5)
 
 
 func _on_load_pressed() -> void:
 	if _plugin == null or _node == null:
 		return
-	_load_dlg.current_dir = "res://filtr_looks"
+	_load_dlg.current_dir = FiltrStrings.SAVED_LOOKS_DIR
 	_load_dlg.popup_centered_ratio(0.5)
 
 
