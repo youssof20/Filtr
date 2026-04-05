@@ -28,5 +28,4 @@ text = "Filtr — add a FiltrNode, pick a look in the Filtr dock (instant apply)
 
 [node name="Filtr" type="Node" parent="." unique_id=1191145942]
 script = ExtResource("1_filtr")
-look = "signal_loss"
-intensity = 25.3
+look = "film_noir"

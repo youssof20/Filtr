@@ -66,15 +66,21 @@ func _physics_process(_delta: float) -> void:
 	if cam == null:
 		if _viewport_cam_was_inside:
 			_viewport_cam_was_inside = false
-			FiltrManager.zone_body_exited(self)
+			var mgr0: Node = FiltrBridge.manager()
+			if mgr0:
+				mgr0.zone_body_exited(self)
 		return
 	var inside := _is_point_inside_area(cam.global_position)
 	if inside and not _viewport_cam_was_inside:
 		_viewport_cam_was_inside = true
-		FiltrManager.zone_body_entered(self)
+		var mgr_in: Node = FiltrBridge.manager()
+		if mgr_in:
+			mgr_in.zone_body_entered(self)
 	elif not inside and _viewport_cam_was_inside:
 		_viewport_cam_was_inside = false
-		FiltrManager.zone_body_exited(self)
+		var mgr_out: Node = FiltrBridge.manager()
+		if mgr_out:
+			mgr_out.zone_body_exited(self)
 
 
 static func subtree_has_camera_2d(root: Node) -> bool:
@@ -118,7 +124,9 @@ func _on_body_entered(body: Node) -> void:
 		return
 	_camera_bodies_inside += 1
 	if _camera_bodies_inside == 1:
-		FiltrManager.zone_body_entered(self)
+		var mgr: Node = FiltrBridge.manager()
+		if mgr:
+			mgr.zone_body_entered(self)
 
 
 func _on_body_exited(body: Node) -> void:
@@ -128,4 +136,6 @@ func _on_body_exited(body: Node) -> void:
 		return
 	_camera_bodies_inside = maxi(0, _camera_bodies_inside - 1)
 	if _camera_bodies_inside == 0:
-		FiltrManager.zone_body_exited(self)
+		var mgr: Node = FiltrBridge.manager()
+		if mgr:
+			mgr.zone_body_exited(self)

@@ -86,7 +86,9 @@ func _on_body_entered(body: Node) -> void:
 		return
 	_camera_bodies_inside += 1
 	if _camera_bodies_inside == 1:
-		FiltrManager.zone_body_entered(self)
+		var mgr: Node = FiltrBridge.manager()
+		if mgr:
+			mgr.zone_body_entered(self)
 
 
 func _on_body_exited(body: Node) -> void:
@@ -94,4 +96,6 @@ func _on_body_exited(body: Node) -> void:
 		return
 	_camera_bodies_inside = maxi(0, _camera_bodies_inside - 1)
 	if _camera_bodies_inside == 0:
-		FiltrManager.zone_body_exited(self)
+		var mgr: Node = FiltrBridge.manager()
+		if mgr:
+			mgr.zone_body_exited(self)

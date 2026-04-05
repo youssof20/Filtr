@@ -8,6 +8,8 @@ By **chuumberry**. Repo: [github.com/youssof20/Filtr](https://github.com/youssof
 
 Copy `addons/filtr` into your project → **Project → Project Settings → Plugins** → enable **Filtr**.
 
+Enabling the plugin adds the **`FiltrManager` autoload** if your project does not already define it (required at runtime). If the editor still looks confused after the first enable, save the project and restart the editor once so `project.godot` reloads.
+
 ## Basic use
 
 1. Add a **FiltrNode** under your running scene.

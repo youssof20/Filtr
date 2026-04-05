@@ -2,6 +2,8 @@
 extends EditorPlugin
 
 const _FiltrDockScript := preload("res://addons/filtr/ui/filtr_dock.gd")
+const _FILTR_MANAGER_AUTOLOAD := "FiltrManager"
+const _FILTR_MANAGER_SCRIPT := "res://addons/filtr/core/filtr_manager.gd"
 
 var _inspector_plugin: EditorInspectorPlugin
 ## UI root (Filtr panel content), parented under EditorDock.
@@ -112,10 +114,28 @@ func _exit_tree() -> void:
 ## First-time enable from Project Settings only; tree hook does the real work.
 func _enable_plugin() -> void:
 	_register_filtr_project_settings()
+	_ensure_filtr_manager_autoload()
 
 
 func _disable_plugin() -> void:
-	pass
+	_remove_filtr_manager_autoload_if_ours()
+
+
+func _ensure_filtr_manager_autoload() -> void:
+	var k := "autoload/%s" % _FILTR_MANAGER_AUTOLOAD
+	if ProjectSettings.has_setting(k):
+		return
+	add_autoload_singleton(_FILTR_MANAGER_AUTOLOAD, _FILTR_MANAGER_SCRIPT)
+
+
+func _remove_filtr_manager_autoload_if_ours() -> void:
+	var k := "autoload/%s" % _FILTR_MANAGER_AUTOLOAD
+	if not ProjectSettings.has_setting(k):
+		return
+	var v := str(ProjectSettings.get_setting(k))
+	var path_part := v.trim_prefix("*").strip_edges()
+	if path_part == _FILTR_MANAGER_SCRIPT:
+		remove_autoload_singleton(_FILTR_MANAGER_AUTOLOAD)
 
 
 func _filtr_on_editor_selection_changed() -> void:

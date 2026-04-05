@@ -50,7 +50,9 @@ var _adjust_shadow_strength: float = 65.0
 		if Engine.is_editor_hint():
 			filtr_changed.emit()
 		if not Engine.is_editor_hint():
-			FiltrManager.sync_intensity_from_driver()
+			var mgr: Node = FiltrBridge.manager()
+			if mgr:
+				mgr.sync_intensity_from_driver()
 
 
 ## Deprecated: pre-1.0 scenes only. Merged into `sub_values` automatically.
@@ -128,13 +130,17 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	FiltrManager.register_driver(self)
+	var mgr: Node = FiltrBridge.manager()
+	if mgr:
+		mgr.register_driver(self)
 
 
 func _exit_tree() -> void:
 	if Engine.is_editor_hint():
 		return
-	FiltrManager.unregister_driver(self)
+	var mgr: Node = FiltrBridge.manager()
+	if mgr:
+		mgr.unregister_driver(self)
 
 
 func _run_legacy_sub_migration() -> void:
@@ -167,7 +173,9 @@ func _run_legacy_sub_migration() -> void:
 	if Engine.is_editor_hint():
 		notify_property_list_changed()
 	else:
-		FiltrManager.sync_intensity_from_driver()
+		var mgr: Node = FiltrBridge.manager()
+		if mgr:
+			mgr.sync_intensity_from_driver()
 
 
 ## Instantly applies a look using its display name or id (for example "PS1").
@@ -192,14 +200,18 @@ func transition_to(preset_label: String, duration: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	filtr_internal_set_look(id)
-	FiltrManager.transition_to_preset(id, duration)
+	var mgr: Node = FiltrBridge.manager()
+	if mgr:
+		mgr.transition_to_preset(id, duration)
 
 
 ## Fades the look out across the given time in seconds. Safe to call from AnimationPlayer method tracks.
 func clear(duration: float = 0.0) -> void:
 	if Engine.is_editor_hint():
 		return
-	FiltrManager.clear_look(duration)
+	var mgr_clear: Node = FiltrBridge.manager()
+	if mgr_clear:
+		mgr_clear.clear_look(duration)
 
 
 ## Sets strength from 0.0 (off) to 1.0 (full). Safe to call from AnimationPlayer method tracks.
@@ -241,18 +253,24 @@ func set_look_tuning(slider_id: String, percent: float) -> void:
 func _notify_manager() -> void:
 	if Engine.is_editor_hint():
 		return
-	FiltrManager.apply_from_driver()
+	var mgr: Node = FiltrBridge.manager()
+	if mgr:
+		mgr.apply_from_driver()
 
 
 func _notify_intensity_only() -> void:
 	if Engine.is_editor_hint():
 		filtr_changed.emit()
 		return
-	FiltrManager.sync_intensity_from_driver()
+	var mgr: Node = FiltrBridge.manager()
+	if mgr:
+		mgr.sync_intensity_from_driver()
 
 
 func _notify_adjust_changed() -> void:
 	if Engine.is_editor_hint():
 		filtr_changed.emit()
 		return
-	FiltrManager.sync_adjust_from_driver()
+	var mgr: Node = FiltrBridge.manager()
+	if mgr:
+		mgr.sync_adjust_from_driver()
