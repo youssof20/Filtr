@@ -7,17 +7,17 @@ func _init() -> void:
 	effects = [
 		FiltrEffectLayer.new(
 			"res://addons/filtr/shaders/blur.gdshader",
-			{"radius": 0.75},
+			{"radius": 0.95},
 			{"radius": 0.0}
 		),
 		FiltrEffectLayer.new(
 			"res://addons/filtr/shaders/color_grade.gdshader",
-			{"saturation": -0.18, "contrast": -0.06, "rgb_tint": Vector3(1.04, 1.02, 0.97)},
+			{"saturation": -0.26, "contrast": -0.04, "rgb_tint": Vector3(1.06, 1.03, 0.96)},
 			{"saturation": 0.0, "contrast": 0.0, "rgb_tint": Vector3(1.0, 1.0, 1.0)}
 		),
 		FiltrEffectLayer.new(
 			"res://addons/filtr/shaders/vignette.gdshader",
-			{"strength": 0.2, "radius": 0.9},
+			{"strength": 0.3, "radius": 0.9},
 			{"strength": 0.0, "radius": 0.9}
 		),
 	]

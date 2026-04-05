@@ -31,15 +31,15 @@ func _parse_property(
 		return true
 	if name == "intensity" and object is FiltrNode:
 		add_property_editor(name, _IntensityOnly.new())
-		var subs: Control = _SubSlidersSection.new()
-		subs.setup(self, object as FiltrNode)
-		add_custom_control(subs)
 		return true
 	return false
 
 
 func _parse_end(object: Object) -> void:
 	if object is FiltrNode and _editor_plugin != null:
+		var subs: Control = _SubSlidersSection.new()
+		subs.setup(self, object as FiltrNode)
+		add_custom_control(subs)
 		var sec: Control = _SaveLoadSection.new()
 		sec.setup(_editor_plugin, object as FiltrNode)
 		add_custom_control(sec)

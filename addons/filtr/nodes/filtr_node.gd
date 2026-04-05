@@ -26,8 +26,14 @@ var _adjust_shadow_strength: float = 65.0
 		_look = value
 		if Engine.is_editor_hint():
 			notify_property_list_changed()
-			filtr_changed.emit()
+			# After look changes, the inspector rebuilds; defer so FiltrNode.look matches the new row.
+			call_deferred("_filtr_emit_editor_changed")
 		_notify_manager()
+
+
+func _filtr_emit_editor_changed() -> void:
+	if Engine.is_editor_hint():
+		filtr_changed.emit()
 
 
 @export_range(0.0, 100.0, 0.1) var intensity: float = 100.0:
@@ -260,7 +266,7 @@ func _notify_manager() -> void:
 
 func _notify_intensity_only() -> void:
 	if Engine.is_editor_hint():
-		filtr_changed.emit()
+		# Do not emit filtr_changed: it would rebuild sub-slider rows every drag.
 		return
 	var mgr: Node = FiltrBridge.manager()
 	if mgr:

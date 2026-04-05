@@ -7,17 +7,17 @@ func _init() -> void:
 	effects = [
 		FiltrEffectLayer.new(
 			"res://addons/filtr/shaders/color_grade.gdshader",
-			{"saturation": -0.05, "contrast": 0.28, "rgb_tint": Vector3(1.0, 1.0, 1.0)},
+			{"saturation": 0.1, "contrast": 0.44, "rgb_tint": Vector3(1.02, 1.01, 1.06)},
 			{"saturation": 0.0, "contrast": 0.0, "rgb_tint": Vector3(1.0, 1.0, 1.0)}
 		),
 		FiltrEffectLayer.new(
 			"res://addons/filtr/shaders/pixelate.gdshader",
-			{"resolution": 420.0},
+			{"resolution": 280.0},
 			{"resolution": 1920.0}
 		),
 		FiltrEffectLayer.new(
 			"res://addons/filtr/shaders/dither.gdshader",
-			{"strength": 0.35, "pattern": 0},
+			{"strength": 0.52, "pattern": 0},
 			{"strength": 0.0, "pattern": 0}
 		),
 	]

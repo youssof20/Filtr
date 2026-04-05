@@ -9,8 +9,8 @@ var _plugin: EditorInspectorPlugin
 var _node: FiltrNode
 var _vbox: VBoxContainer
 var _filtr_changed_cb: Callable
-## Last look id we built sliders for (avoid full rebuild on intensity-only filtr_changed).
-var _last_built_look: String = ""
+## Sentinel so the first deferred sync always runs after inspector parse.
+var _last_synced_look: String = "\u0001"
 
 
 func setup(plugin: EditorInspectorPlugin, node: FiltrNode) -> void:
@@ -28,11 +28,10 @@ func setup(plugin: EditorInspectorPlugin, node: FiltrNode) -> void:
 	sep.custom_minimum_size = Vector2(0, 1)
 	sep.color = _SEP
 	_vbox.add_child(sep)
-	_rebuild()
-	_last_built_look = _node.look if _node != null else ""
 	if _node != null and _node.has_signal(_SIG_FILTR_CHANGED):
 		if not _node.is_connected(_SIG_FILTR_CHANGED, _filtr_changed_cb):
 			_node.connect(_SIG_FILTR_CHANGED, _filtr_changed_cb)
+	call_deferred("_deferred_sync_to_look")
 
 
 func _exit_tree() -> void:
@@ -42,11 +41,16 @@ func _exit_tree() -> void:
 
 
 func _on_filtr_changed_filter_rebuild() -> void:
-	if _node == null:
+	call_deferred("_deferred_sync_to_look")
+
+
+func _deferred_sync_to_look() -> void:
+	if not is_instance_valid(_node):
 		return
-	if _node.look == _last_built_look:
+	var id: String = _node.look
+	if id == _last_synced_look:
 		return
-	_last_built_look = _node.look
+	_last_synced_look = id
 	_rebuild()
 
 
@@ -65,7 +69,18 @@ func _rebuild() -> void:
 		_vbox.add_child(tip)
 		return
 	var preset: FiltrLookPreset = FiltrPresetRegistry.instantiate_preset(_node.look)
-	if preset == null or preset.sub_controls.is_empty():
+	if preset == null:
+		var bad := Label.new()
+		bad.add_theme_color_override(&"font_color", Color(0.85, 0.45, 0.35, 1.0))
+		bad.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		bad.text = "Unknown look id “%s”. Choose a preset from the Look list." % _node.look
+		_vbox.add_child(bad)
+		return
+	if preset.sub_controls.is_empty():
+		var none := Label.new()
+		none.add_theme_color_override(&"font_color", Color(0.55, 0.55, 0.58, 1.0))
+		none.text = "This look has no extra sliders — use Intensity and Adjust (global)."
+		_vbox.add_child(none)
 		return
 	for ctrl in preset.sub_controls:
 		if not ctrl is Dictionary:

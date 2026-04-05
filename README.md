@@ -60,7 +60,7 @@ All fullscreen passes live in `addons/filtr/shaders/`. **Update this list when y
 | `scanlines.gdshader` | Horizontal scan lines |
 | `sharpen.gdshader` | Mild unsharp mask |
 | `vignette.gdshader` | Edge darken, optional pulse |
-| `warp.gdshader` | Gentle wavy warp |
+| `warp.gdshader` | Wavy warp (`strength`, `frequency`) |
 
 ## Godot version
 
