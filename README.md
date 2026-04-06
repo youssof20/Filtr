@@ -18,7 +18,7 @@ Enabling the plugin adds the **`FiltrManager` autoload** if your project does no
 
 ## Filtr dock
 
-Browse and search looks; select a **FiltrNode** in the scene tree, then click a row to apply. **Escape** clears the search box; **Enter** applies the focused row. Optional thumbnails: place `addons/filtr/thumbnails/<look_id>.png`.
+Browse and search looks; select a **FiltrNode** in the scene tree, then click a row to apply. **Escape** clears the search box; **Enter** applies the focused row. **Dock previews:** add `addons/filtr/thumbnails/<look_id>.png` (same id as the preset, e.g. `film_noir.png`). The repo ships example stills for **Film Noir**, **Neon Night**, **Old Photograph**, and **Security Cam** — hover a row in the dock to see them.
 
 ## Saved looks
 
