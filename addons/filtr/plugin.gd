@@ -64,7 +64,8 @@ func _enter_tree() -> void:
 		_dock.set_anchors_preset(Control.PRESET_FULL_RECT)
 		_dock.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		_dock.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		_use_editor_dock = ClassDB.class_exists(&"EditorDock")
+		# EditorDock + add_dock/remove_dock exist from Godot 4.6; 4.5 must use add_control_to_dock only.
+		_use_editor_dock = ClassDB.class_exists(&"EditorDock") and has_method(&"add_dock")
 		if _use_editor_dock:
 			_editor_dock = ClassDB.instantiate(&"EditorDock")
 			_editor_dock.set(&"title", FiltrStrings.DOCK_TAB_TITLE)
@@ -72,7 +73,7 @@ func _enter_tree() -> void:
 			_editor_dock.set(&"default_slot", _FILTR_DOCK_SLOT)
 			_editor_dock.set(&"layout_key", "filtr_dock")
 			_editor_dock.add_child(_dock)
-			add_dock(_editor_dock)
+			call("add_dock", _editor_dock)
 			_filtr_dock_registered = true
 		else:
 			add_control_to_dock(_FILTR_DOCK_SLOT, _dock)
@@ -91,8 +92,8 @@ func _exit_tree() -> void:
 		_editor_selection.selection_changed.disconnect(_filtr_on_editor_selection_changed)
 	_editor_selection = null
 	if _use_editor_dock:
-		if _filtr_dock_registered and is_instance_valid(_editor_dock):
-			remove_dock(_editor_dock)
+		if _filtr_dock_registered and is_instance_valid(_editor_dock) and has_method(&"remove_dock"):
+			call("remove_dock", _editor_dock)
 			_filtr_dock_registered = false
 		if is_instance_valid(_editor_dock):
 			_editor_dock.queue_free()
