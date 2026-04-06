@@ -20,6 +20,14 @@ Enabling the plugin adds the **`FiltrManager` autoload** if your project does no
 
 Browse and search looks; select a **FiltrNode** in the scene tree, then click a row to apply. **Escape** clears the search box; **Enter** applies the focused row. **Dock previews:** add `addons/filtr/thumbnails/<look_id>.png` (same id as the preset, e.g. `film_noir.png`). The repo ships example stills for **Film Noir**, **Neon Night**, **Old Photograph**, and **Security Cam** — hover a row in the dock to see them.
 
+### Example look previews
+
+| Film Noir | Neon Night |
+| :---: | :---: |
+| ![Film Noir](addons/filtr/thumbnails/film_noir.png) | ![Neon Night](addons/filtr/thumbnails/neon_night.png) |
+| Old Photograph | Security Cam |
+| ![Old Photograph](addons/filtr/thumbnails/old_photograph.png) | ![Security Cam](addons/filtr/thumbnails/security_cam.png) |
+
 ## Saved looks
 
 Inspector **Save / Load look** writes a **FiltrSavedLook** resource. Save `.tres` files under **`res://addons/filtr/saved_looks/`** — they are listed in the dock (right-click a saved row to delete). That folder ships with a `.gitkeep` so the path exists.
