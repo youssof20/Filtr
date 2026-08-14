@@ -1,3 +1,5 @@
+
+
 # Filtr
 
 MIT-licensed post-processing **looks** for **Godot 4** — curated fullscreen presets (stacks of `canvas_item` shaders), a **FiltrNode** driver, **zones**, an editor **Filtr** dock, per-look detail sliders, and a global **Adjust** pass (hue, saturation, shadow tint / strength, highlights) that scales with look intensity.
@@ -14,7 +16,7 @@ Enabling the plugin adds the **`FiltrManager` autoload** if your project does no
 
 1. Add a **FiltrNode** under your running scene.
 2. Pick a **Look** in the Inspector or the **Filtr** dock.
-3. Set **Intensity** (0–100), per-look detail sliders, and under **Adjust (global)** optional hue / saturation / shadow grade / highlights.
+3. Set **Intensity** (0–100), per-look detail sliders, and under **Adjust (global)** set optional hue / saturation / shadow tint / strength / highlights.
 
 ## Filtr dock
 
@@ -34,12 +36,12 @@ Inspector **Save / Load look** writes a **FiltrSavedLook** resource. Save `.tres
 
 ## Zones
 
-Use **FiltrZone** / **FiltrZone2D** for area volumes: assign a look and blend time; **On exit** can restore the FiltrNode look or clear the stack.
+Use **FiltrZone** / **FiltrZone2D** for area volumes: assign a look and blend time; **On Exit** can restore the FiltrNode look or clear the stack.
 
 ## Code API (AnimationPlayer-safe)
 
 ```gdscript
-$FiltrNode.set_look("Horror")
+$FiltrNode.set_look("Film Noir")
 $FiltrNode.transition_to("Film Noir", 1.5)
 $FiltrNode.set_intensity(0.7)
 $FiltrNode.set_sub_value("grain", 0.4)
